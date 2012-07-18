@@ -1,0 +1,32 @@
+Index: WebContainer.java
+===================================================================
+--- WebContainer.java	(revision 53871)
++++ WebContainer.java	(working copy)
+@@ -2167,7 +2167,12 @@
+                 context = (WebModule) host.findChild(contextRoot);
+                 if (context != null) {
+                     context.saveSessions(props);
+-                    host.removeChild(context);
++                    for(int i=0;i<domain.getApplications().getApplications().size();i++){
++                    	if(appName.equals(domain.getApplications().getApplications().get(i).getName())||
++                    			context.equals(domain.getApplications().getApplications().get(i).getContextRoot())){
++                    		host.removeChild(context);
++                    	}
++                    }
+ 
+                     webStatsProviderBootstrap.unregisterApplicationStatsProviders(
+                             context.getMonitoringNodeName(), host.getName());
+@@ -2182,7 +2187,12 @@
+                          * after the domain has been restarted.
+                          */
+                         if (!isShutdown) {
+-                            context.destroy();
++                        	for(int i=0;i<domain.getApplications().getApplications().size();i++){
++                            	if(appName.equals(domain.getApplications().getApplications().get(i).getName())||
++                            			context.equals(domain.getApplications().getApplications().get(i).getContextRoot())){
++                            		context.destroy();
++                            	}
++                            }  
+                         }
+                     } catch (Exception ex) {
+                         String msg = rb.getString(

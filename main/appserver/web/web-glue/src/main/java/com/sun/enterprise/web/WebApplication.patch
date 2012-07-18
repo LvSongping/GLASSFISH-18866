@@ -1,0 +1,13 @@
+Index: WebApplication.java
+===================================================================
+--- WebApplication.java	(revision 53871)
++++ WebApplication.java	(working copy)
+@@ -155,7 +155,7 @@
+                 props = new Properties();
+             }
+ 
+-            container.unloadWebModule(getDescriptor().getContextRoot(), null,
++            container.unloadWebModule(getDescriptor().getContextRoot(), getDescriptor().getName(),
+                                       wmInfo.getVirtualServers(), props);
+ 
+             if (keepSessions) {
